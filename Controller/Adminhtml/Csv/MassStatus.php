@@ -42,16 +42,16 @@ class MassStatus extends \Magento\Backend\App\Action
     public function execute()
     {
         $ids = $this->getRequest()->getPost('selected');
-        $status = $this->getRequest()->getParam('status');
+        $processed = $this->getRequest()->getParam('processed');
         if ($ids) {
-            $collection = $this->csvFactory->create()
+            $collection = $this->z->create()
                 ->getCollection()
                 ->addFieldToFilter('csv_id', ['in' => $ids]);
             $collectionSize = $collection->getSize();
             $updatedItems = 0;
             foreach ($collection as $item) {
                 try {
-                    $item->setStatus($status);
+                    $item->setProcessed($processed);
                     $item->save();
                     $updatedItems++;
                 } catch (\Exception $e) {
