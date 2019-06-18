@@ -3,9 +3,11 @@
 
 namespace Xigen\CsvUpload\Controller\Adminhtml\Index;
 
+/**
+ * Submit controller class
+ */
 class Submit extends \Magento\Backend\App\Action
 {
-
     protected $resultPageFactory;
 
     /**

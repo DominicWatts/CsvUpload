@@ -93,7 +93,7 @@
                     <item name="validateBeforeSave" xsi:type="boolean">false</item>
                 </param>
             </editorConfig>
-			<childDefaults>
+            <childDefaults>
                 <param name="fieldAction" xsi:type="array">
                     <item name="provider" xsi:type="string">xigen_csvupload_csv_listing.xigen_csvupload_csv_listing.xigen_csvupload_csv_columns_editor</item>
                     <item name="target" xsi:type="string">startEdit</item>
@@ -121,7 +121,7 @@
                 <options class="Magento\Config\Model\Config\Source\Yesno"/>
                 <filter>select</filter>
                 <dataType>select</dataType>
-                <label translate="true">Status</label>
+                <label translate="true">Processed</label>
                 <editor>
                     <editorType>select</editorType>
                     <validation>
@@ -130,10 +130,11 @@
                 </editor>
             </settings>
         </column>
-        <column name="filename">
+        <column name="filename" class="Xigen\CsvUpload\Ui\Component\Listing\Column\Filename">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Filename</label>
+				<bodyTmpl>ui/grid/cells/html</bodyTmpl>
             </settings>
         </column>
         <column name="uploaded_at">
@@ -142,5 +143,12 @@
                 <label translate="true">Uploaded At</label>
             </settings>
         </column>
+		<actionsColumn class="Xigen\CsvUpload\Ui\Component\Listing\Column\CsvActions" name="actions">
+			<settings>
+				<indexField>csv_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
     </columns>
 </listing>

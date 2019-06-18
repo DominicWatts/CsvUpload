@@ -9,6 +9,9 @@
                     <resource id="Xigen_CsvUpload::Csv_update" sortOrder="30" title="Update Csv"/>
                     <resource id="Xigen_CsvUpload::Csv_view" sortOrder="40" title="View Csv"/>
                 </resource>
+                <resource id="Xigen_CsvUpload::xigen_csvupload" sortOrder="10" title="xigen csvupload">
+                    <resource id="Xigen_CsvUpload::index_submit" sortOrder="10" title="index submit"/>
+                </resource>
             </resource>
         </resources>
     </acl>
