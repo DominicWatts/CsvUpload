@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Xigen_CsvUpload::csv" title="CSV" module="Xigen_CsvUpload" sortOrder="20" resource="Xigen_CsvUpload::csv" parent="Magento_Backend::content"/>
+        <add action="xigen_csvupload/index/submit" id="Xigen_CsvUpload::index_submit" module="Xigen_CsvUpload" parent="Xigen_CsvUpload::csv" resource="Xigen_CsvUpload::index_submit" sortOrder="10" title="CSV File Submit"/>
+        <add action="xigen_csvupload/csv/index" id="Xigen_CsvUpload::xigen_csvupload_csv" module="Xigen_CsvUpload" parent="Xigen_CsvUpload::csv" resource="Xigen_CsvUpload::xigen_csvupload_csv" sortOrder="20" title="CSV File List"/>
+    </menu>
+</config>

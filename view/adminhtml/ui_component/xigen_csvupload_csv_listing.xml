@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">xigen_csvupload_csv_listing.xigen_csvupload_csv_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>xigen_csvupload_csv_columns</spinner>
+        <deps>
+            <dep>xigen_csvupload_csv_listing.xigen_csvupload_csv_listing_data_source</dep>
+        </deps>
+    </settings>
+	<dataSource name="xigen_csvupload_csv_listing_data_source">
+		<aclResource>Xigen_CsvUpload::Csv</aclResource>
+		<argument name="dataProvider" xsi:type="configurableObject">
+			<argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+			<argument name="name" xsi:type="string">xigen_csvupload_csv_listing_data_source</argument>
+			<argument name="primaryFieldName" xsi:type="string">csv_id</argument>
+			<argument name="requestFieldName" xsi:type="string">id</argument>
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+					<item name="update_url" path="mui/index/render" xsi:type="url"/>
+					<item name="storageConfig" xsi:type="array">
+						<item name="indexField" xsi:type="string">csv_id</item>
+					</item>
+				</item>
+			</argument>
+		</argument>
+	</dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+		<massaction name="listing_massaction">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="selectProvider" xsi:type="string">xigen_csvupload_csv_listing.xigen_csvupload_csv_listing_data_source.xigen_csvupload_csv_columns.ids</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+					<item name="indexField" xsi:type="string">csv_id</item>
+				</item>
+			</argument>
+			<action name="delete">
+				<settings>
+					<confirm>
+						<message translate="true">Are you sure you want to delete the csv entries?</message>
+						<title translate="true">Delete items</title>
+					</confirm>
+					<url path="*/*/massDelete"/>
+					<type>delete</type>
+					<label translate="true">Delete</label>
+				</settings>
+			</action>
+			<action name="status">
+				<argument name="data" xsi:type="array">
+					<item name="config" xsi:type="array">
+						<item name="type" xsi:type="string">status</item>
+						<item name="label" xsi:type="string" translate="true">Change Processed Status</item>
+					</item>
+				</argument>
+				<argument name="actions" xsi:type="array">
+					<item name="0" xsi:type="array">
+						<item name="type" xsi:type="string">enable</item>
+						<item name="label" xsi:type="string" translate="true">Yes</item>
+						<item name="url" xsi:type="url" path="*/*/massStatus">
+							<param name="processed">1</param>
+						</item>
+					</item>
+					<item name="1" xsi:type="array">
+						<item name="type" xsi:type="string">disable</item>
+						<item name="label" xsi:type="string" translate="true">No</item>
+						<item name="url" xsi:type="url" path="*/*/massStatus">
+							<param name="processed">0</param>
+						</item>
+					</item>
+				</argument>
+			</action>
+		</massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="xigen_csvupload_csv_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>csv_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="csv_id">
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="filename">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Filename</label>
+            </settings>
+        </column>
+        <column name="uploaded_at">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Uploaded At</label>
+            </settings>
+        </column>
+        <column name="processed">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Processed</label>
+            </settings>
+        </column>
+    </columns>
+</listing>
