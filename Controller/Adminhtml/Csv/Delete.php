@@ -10,6 +10,25 @@ class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 {
 
     /**
+     * Constructor
+     *
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     */
+    public function __construct(
+        \Magento\Backend\App\Action\Context $context,
+        \Magento\Framework\Registry $coreRegistry,
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        \Xigen\CsvUpload\Model\CsvFactory $csvFactory,
+        \Xigen\CsvUpload\Helper\Csv $csvHelper
+    ) {
+        $this->resultPageFactory = $resultPageFactory;
+        $this->csvFactory = $csvFactory;
+        $this->csvHelper = $csvHelper;
+        parent::__construct($context, $coreRegistry);
+    }
+
+    /**
      * Delete action
      *
      * @return \Magento\Framework\Controller\ResultInterface
@@ -23,7 +42,7 @@ class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
         if ($id) {
             try {
                 // init model and delete
-                $model = $this->_objectManager->create(\Xigen\CsvUpload\Model\Csv::class);
+                $model = $this->csvFactory->create();
                 $model->load($id);
                 $model->delete();
                 // display success message

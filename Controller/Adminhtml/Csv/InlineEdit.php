@@ -16,10 +16,12 @@ class InlineEdit extends \Magento\Backend\App\Action
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
+        \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
+        \Xigen\CsvUpload\Model\CsvFactory $csvFactory
     ) {
         parent::__construct($context);
         $this->jsonFactory = $jsonFactory;
+        $this->csvFactory = $csvFactory;
     }
 
     /**
@@ -40,14 +42,14 @@ class InlineEdit extends \Magento\Backend\App\Action
                 $messages[] = __('Please correct the data sent.');
                 $error = true;
             } else {
-                foreach (array_keys($postItems) as $modelid) {
+                foreach (array_keys($postItems) as $modelId) {
                     /** @var \Xigen\CsvUpload\Model\Csv $model */
-                    $model = $this->_objectManager->create(\Xigen\CsvUpload\Model\Csv::class)->load($modelid);
+                    $model = $this->csvFactory->create()->load($modelId);
                     try {
-                        $model->setData(array_merge($model->getData(), $postItems[$modelid]));
+                        $model->setData(array_merge($model->getData(), $postItems[$modelId]));
                         $model->save();
                     } catch (\Exception $e) {
-                        $messages[] = "[Csv ID: {$modelid}]  {$e->getMessage()}";
+                        $messages[] = "[Csv ID: {$modelId}]  {$e->getMessage()}";
                         $error = true;
                     }
                 }

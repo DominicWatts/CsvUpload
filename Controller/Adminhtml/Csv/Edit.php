@@ -18,9 +18,11 @@ class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        \Xigen\CsvUpload\Model\CsvFactory $csvFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
+        $this->csvFactory = $csvFactory;
         parent::__construct($context, $coreRegistry);
     }
 
@@ -33,7 +35,7 @@ class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
     {
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('csv_id');
-        $model = $this->_objectManager->create(\Xigen\CsvUpload\Model\Csv::class);
+        $model = $this->csvFactory->create();
         
         // 2. Initial checking
         if ($id) {

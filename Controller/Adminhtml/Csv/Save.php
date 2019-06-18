@@ -18,9 +18,11 @@ class Save extends \Magento\Backend\App\Action
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
+        \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
+        \Xigen\CsvUpload\Model\CsvFactory $csvFactory
     ) {
         $this->dataPersistor = $dataPersistor;
+        $this->csvFactory = $csvFactory;
         parent::__construct($context);
     }
 
@@ -37,7 +39,7 @@ class Save extends \Magento\Backend\App\Action
         if ($data) {
             $id = $this->getRequest()->getParam('csv_id');
         
-            $model = $this->_objectManager->create(\Xigen\CsvUpload\Model\Csv::class)->load($id);
+            $model = $this->csvFactory->create()->load($id);
             if (!$model->getId() && $id) {
                 $this->messageManager->addErrorMessage(__('This Csv no longer exists.'));
                 return $resultRedirect->setPath('*/*/');
