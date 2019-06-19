@@ -79,14 +79,20 @@ class Import extends AbstractHelper
     /**
      * Get unprocssed file collection
      * @param string $type
-     * @return \Xigen\CsvUpload\Model\ResourceModel\Import\Collection;
+     * @param int $limit
+     * @param int $offset
+     * @param string $sku
+     * @return \Xigen\CsvUpload\Model\ResourceModel\Import\Collection
      */
-    public function getImports($type = null, $limit = null, $offset = null)
+    public function getImports($type = null, $limit = null, $offset = null, $sku = false)
     {
         $importCollection = $this->importFactory->create()
             ->getCollection();
         if ($type) {
             $importCollection->addFieldToFilter('type_id', ['eq' => $type]);
+        }
+        if ($sku) {
+            $importCollection->addFieldToFilter('sku', ['eq' => $sku]);
         }
         if ($limit) {
             $importCollection->setPageSize($limit);
@@ -137,6 +143,28 @@ class Import extends AbstractHelper
      * @param int $offset
      * @return array
      */
+    public function getImportsCollectionArrayBySkus($skus = [], $limit = null, $offset = null)
+    {
+        $array = [];
+        foreach ($skus as $sku) {
+            $collection = $this->getImports(null, $limit, $offset, $sku);
+            if ($collection && $collection->getSize() > 0) {
+                $array[$sku] = $collection;
+            }
+        }
+        if (empty($array)) {
+            return false;
+        }
+        return $array;
+    }
+
+    /**
+     * Get array of import collections
+     * @param string $productType
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
     public function getImportsCollectionArray($productType = null, $limit = null, $offset = null)
     {
         $array = [];
@@ -166,6 +194,45 @@ class Import extends AbstractHelper
     public function loadImportById($importId)
     {
         return $this->importFactory->create->load($importId);
+    }
+
+    /**
+     * Delete by Id
+     * @param int $importId
+     * \Xigen\CsvUpload\Model\Import
+     */
+    public function deleteImportById($importId)
+    {
+        if ($import = $this->importFactory->create->load($importId)) {
+            try {
+                $import->delete();
+                return true;
+            } catch (\Exception $e) {
+                $this->logger->critical($e);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Delete imports by sku
+     * @param string $sku
+     * @return void
+     */
+    public function deleteImportBySku($sku)
+    {
+        $imports = $this->getImports(null, null, null, $sku);
+        if ($imports && $imports->getSize()) {
+            foreach ($imports as $import) {
+                try {
+                    $import->delete();
+                } catch (\Exception $e) {
+                    $this->logger->critical($e);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
