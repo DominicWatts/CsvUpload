@@ -7,13 +7,14 @@ use Magento\Framework\Api\DataObjectHelper;
 use Xigen\CsvUpload\Api\Data\CsvInterface;
 use Xigen\CsvUpload\Api\Data\CsvInterfaceFactory;
 
+/**
+ * Csv class
+ */
 class Csv extends \Magento\Framework\Model\AbstractModel
 {
     protected $_eventPrefix = 'xigen_csvupload_csv';
     protected $dataObjectHelper;
-
     protected $csvDataFactory;
-
 
     /**
      * @param \Magento\Framework\Model\Context $context

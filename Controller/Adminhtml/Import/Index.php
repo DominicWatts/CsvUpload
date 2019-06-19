@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
+namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
  * Index controller class
@@ -32,7 +32,7 @@ class Index extends \Magento\Backend\App\Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend(__("Csv"));
+        $resultPage->getConfig()->getTitle()->prepend(__("Import"));
         return $resultPage;
     }
 }

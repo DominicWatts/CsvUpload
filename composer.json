@@ -1,6 +1,6 @@
 {
     "name": "dominicwatts/csvupload",
-    "description": "",
+    "description": "Base for any type of csv upload and processing",
     "type": "magento2-module",
     "license": "proprietary",
     "version": "1.0.0",

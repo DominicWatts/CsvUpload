@@ -5,6 +5,9 @@ namespace Xigen\CsvUpload\Model\Data;
 
 use Xigen\CsvUpload\Api\Data\CsvInterface;
 
+/**
+ * Csv class
+ */
 class Csv extends \Magento\Framework\Api\AbstractExtensibleObject implements CsvInterface
 {
 

@@ -4,9 +4,9 @@
 namespace Xigen\CsvUpload\Model\ResourceModel;
 
 /**
- * Csv class
+ * Import class
  */
-class Csv extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+class Import extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
 
     /**
@@ -16,6 +16,6 @@ class Csv extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _construct()
     {
-        $this->_init('xigen_csvupload_csv', 'csv_id');
+        $this->_init('xigen_csvupload_import', 'import_id');
     }
 }

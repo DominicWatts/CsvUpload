@@ -5,12 +5,39 @@ namespace Xigen\CsvUpload\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 
+/**
+ * Csv helper class
+ */
 class Csv extends AbstractHelper
 {
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
     private $logger;
+
+    /**
+     * @var \Magento\Framework\File\Csv
+     */
     private $csvProcessor;
+
+    /**
+     * @var \Xigen\CsvUpload\Model\CsvFactory
+     */
     private $csvFactory;
+
+    /**
+     * @var \Xigen\CsvUpload\Model\ImportFactory
+     */
+    private $importFactory;
+
+    /**
+     * @var \Magento\Framework\App\Filesystem\DirectoryList
+     */
     private $directoryList;
+
+    /**
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
+     */
     private $dateTime;
 
     /**
@@ -21,12 +48,14 @@ class Csv extends AbstractHelper
         \Psr\Log\LoggerInterface $logger,
         \Magento\Framework\File\Csv $csvProcessor,
         \Xigen\CsvUpload\Model\CsvFactory $csvFactory,
+        \Xigen\CsvUpload\Model\ImportFactory $importFactory,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
         \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
     ) {
         $this->logger = $logger;
         $this->csvProcessor = $csvProcessor;
         $this->csvFactory = $csvFactory;
+        $this->importFactory = $importFactory;
         $this->directoryList = $directoryList;
         $this->dateTime = $dateTime;
         parent::__construct($context);
@@ -34,19 +63,19 @@ class Csv extends AbstractHelper
 
     /**
      * Get unprocssed file collection
-     * @return \Xigen\Data\Model\ResourceModel\Csv\Collection;
+     * @return \Xigen\CsvUpload\Model\ResourceModel\Csv\Collection;
      */
     public function getUnprocessedFiles()
     {
         $csvCollection = $this->csvFactory->create()
             ->getCollection()
-            ->addFieldToFilter('processed', array('eq' => '0'));
+            ->addFieldToFilter('processed', ['eq' => '0']);
         return $csvCollection;
     }
 
     /**
      * Get unprocssed item
-     * @return \Xigen\Data\Model\Csv;
+     * @return \Xigen\CsvUpload\Model\Csv;
      */
     public function getUnprocessedFile()
     {
@@ -60,7 +89,7 @@ class Csv extends AbstractHelper
     /**
      * Load file by Id
      * @param int $fileId
-     * \Xigen\Data\Model\Csv
+     * \Xigen\CsvUpload\Model\Csv
      */
     public function loadFileById($fileId)
     {
@@ -75,7 +104,7 @@ class Csv extends AbstractHelper
     public function getFilename($url = null)
     {
         if (!$url) {
-            throw new \Exception('Url "' . $url . '" is blank');
+            throw new \LocalizedException('Url "' . $url . '" is blank');
         }
         $removePrefix = explode('//', $url);
         $parts = explode('/', $removePrefix[1]);
@@ -103,7 +132,7 @@ class Csv extends AbstractHelper
     public function setCsvFileProcessToId($csvId = null, $processId = null)
     {
         if (!$csvId || !$processId) {
-            throw new \Exception(__("Problem setting file ID $csvId as Status ID $processId"));
+            throw new \LocalizedException(__("Problem setting file ID $csvId as Status ID $processId"));
         }
 
         $fileToProcess = $this->csvFactory->create()->load($csvId);
@@ -115,5 +144,60 @@ class Csv extends AbstractHelper
             $this->logger->critical($e);
         }
         return false;
+    }
+
+    /**
+     * Read CSV row, manipulate and store in temp table
+     * @param array $headers
+     * @param array $readRow
+     * @return bool
+     */
+    public function storeInTempTable($headers = [], $readRow = [])
+    {
+        if (empty($headers) || empty($readRow)) {
+            throw new \LocalizedException(__("Problem loading data"));
+        }
+        $insertArray = [];
+        foreach ($readRow as $key => $readItem) {
+            $insertArray[$headers[$key]] = $readItem;
+        }
+
+        $import = $this->importFactory->create();
+        
+        $topLevelArray = $this->getTopLevelArray();
+        foreach ($topLevelArray as $topLevelItem) {
+            if (isset($insertArray[$topLevelItem])) {
+                $import->setData($topLevelItem, $insertArray[$topLevelItem]);
+                unset($insertArray[$topLevelItem]);
+            }
+        }
+
+        $import->setFields(\Magento\Framework\Serialize\SerializerInterface::serialize($insertArray));
+
+        try {
+            $import->save();
+            return true;
+        } catch (\Exception $e) {
+            $this->logger->critical($e);
+        }
+        return false;
+    }
+
+    /**
+     * Define top level array
+     * @return array
+     */
+    public function getTopLevelArray()
+    {
+        return ['sku'];
+    }
+
+    /**
+     * Define top level ignore array
+     * @return array
+     */
+    public function getTopLevelIgnoreArray()
+    {
+        return ['import_id', 'created_at', 'updated_at'];
     }
 }

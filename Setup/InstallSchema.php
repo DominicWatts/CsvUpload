@@ -7,6 +7,9 @@ use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 
+/**
+ * InstallSchema class
+ */
 class InstallSchema implements InstallSchemaInterface
 {
 
@@ -50,6 +53,42 @@ class InstallSchema implements InstallSchemaInterface
             [],
             'processed'
         );
+
+        $table_xigen_csvupload_import = $setup->getConnection()->newTable($setup->getTable('xigen_csvupload_import'));
+
+        $table_xigen_csvupload_import->addColumn(
+            'import_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['identity' => true,'nullable' => false,'primary' => true,'unsigned' => true,],
+            'Entity ID'
+        );
+
+        $table_xigen_csvupload_import->addColumn(
+            'sku',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            [],
+            'Sku'
+        );
+
+        $table_xigen_csvupload_import->addColumn(
+            'fields',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            2048,
+            [],
+            'Fields'
+        );
+
+        $table_xigen_csvupload_import->addColumn(
+            'created_at',
+            \Magento\Framework\DB\Ddl\Table::TYPE_DATETIME,
+            null,
+            [],
+            'Created At'
+        );
+
+        $setup->getConnection()->createTable($table_xigen_csvupload_import);
 
         $setup->getConnection()->createTable($table_xigen_csvupload_csv);
     }

@@ -3,44 +3,44 @@
 
 namespace Xigen\CsvUpload\Model;
 
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory as ImportCollectionFactory;
 use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
 use Magento\Framework\Api\DataObjectHelper;
-use Xigen\CsvUpload\Model\ResourceModel\Csv as ResourceCsv;
-use Xigen\CsvUpload\Api\Data\CsvSearchResultsInterfaceFactory;
-use Xigen\CsvUpload\Api\CsvRepositoryInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Store\Model\StoreManagerInterface;
-use Xigen\CsvUpload\Model\ResourceModel\Csv\CollectionFactory as CsvCollectionFactory;
+use Xigen\CsvUpload\Api\Data\ImportInterfaceFactory;
+use Xigen\CsvUpload\Api\ImportRepositoryInterface;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
-use Magento\Framework\Exception\CouldNotSaveException;
+use Xigen\CsvUpload\Api\Data\ImportSearchResultsInterfaceFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Xigen\CsvUpload\Model\ResourceModel\Import as ResourceImport;
 use Magento\Framework\Reflection\DataObjectProcessor;
-use Xigen\CsvUpload\Api\Data\CsvInterfaceFactory;
 
 /**
- * CsvRepository class
+ * ImportRepository class
  */
-class CsvRepository implements CsvRepositoryInterface
+class ImportRepository implements ImportRepositoryInterface
 {
+    protected $importCollectionFactory;
     protected $resource;
     protected $extensionAttributesJoinProcessor;
     protected $extensibleDataObjectConverter;
     protected $dataObjectProcessor;
     private $storeManager;
     private $collectionProcessor;
-    protected $dataCsvFactory;
     protected $dataObjectHelper;
-    protected $csvFactory;
-    protected $csvCollectionFactory;
+    protected $dataImportFactory;
     protected $searchResultsFactory;
+    protected $importFactory;
 
     /**
-     * @param ResourceCsv $resource
-     * @param CsvFactory $csvFactory
-     * @param CsvInterfaceFactory $dataCsvFactory
-     * @param CsvCollectionFactory $csvCollectionFactory
-     * @param CsvSearchResultsInterfaceFactory $searchResultsFactory
+     * @param ResourceImport $resource
+     * @param ImportFactory $importFactory
+     * @param ImportInterfaceFactory $dataImportFactory
+     * @param ImportCollectionFactory $importCollectionFactory
+     * @param ImportSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
      * @param DataObjectProcessor $dataObjectProcessor
      * @param StoreManagerInterface $storeManager
@@ -49,11 +49,11 @@ class CsvRepository implements CsvRepositoryInterface
      * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
      */
     public function __construct(
-        ResourceCsv $resource,
-        CsvFactory $csvFactory,
-        CsvInterfaceFactory $dataCsvFactory,
-        CsvCollectionFactory $csvCollectionFactory,
-        CsvSearchResultsInterfaceFactory $searchResultsFactory,
+        ResourceImport $resource,
+        ImportFactory $importFactory,
+        ImportInterfaceFactory $dataImportFactory,
+        ImportCollectionFactory $importCollectionFactory,
+        ImportSearchResultsInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
         DataObjectProcessor $dataObjectProcessor,
         StoreManagerInterface $storeManager,
@@ -62,11 +62,11 @@ class CsvRepository implements CsvRepositoryInterface
         ExtensibleDataObjectConverter $extensibleDataObjectConverter
     ) {
         $this->resource = $resource;
-        $this->csvFactory = $csvFactory;
-        $this->csvCollectionFactory = $csvCollectionFactory;
+        $this->importFactory = $importFactory;
+        $this->importCollectionFactory = $importCollectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
         $this->dataObjectHelper = $dataObjectHelper;
-        $this->dataCsvFactory = $dataCsvFactory;
+        $this->dataImportFactory = $dataImportFactory;
         $this->dataObjectProcessor = $dataObjectProcessor;
         $this->storeManager = $storeManager;
         $this->collectionProcessor = $collectionProcessor;
@@ -78,43 +78,43 @@ class CsvRepository implements CsvRepositoryInterface
      * {@inheritdoc}
      */
     public function save(
-        \Xigen\CsvUpload\Api\Data\CsvInterface $csv
+        \Xigen\CsvUpload\Api\Data\ImportInterface $import
     ) {
-        /* if (empty($csv->getStoreId())) {
+        /* if (empty($import->getStoreId())) {
             $storeId = $this->storeManager->getStore()->getId();
-            $csv->setStoreId($storeId);
+            $import->setStoreId($storeId);
         } */
         
-        $csvData = $this->extensibleDataObjectConverter->toNestedArray(
-            $csv,
+        $importData = $this->extensibleDataObjectConverter->toNestedArray(
+            $import,
             [],
-            \Xigen\CsvUpload\Api\Data\CsvInterface::class
+            \Xigen\CsvUpload\Api\Data\ImportInterface::class
         );
         
-        $csvModel = $this->csvFactory->create()->setData($csvData);
+        $importModel = $this->importFactory->create()->setData($importData);
         
         try {
-            $this->resource->save($csvModel);
+            $this->resource->save($importModel);
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(__(
-                'Could not save the csv: %1',
+                'Could not save the import: %1',
                 $exception->getMessage()
             ));
         }
-        return $csvModel->getDataModel();
+        return $importModel->getDataModel();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getById($csvId)
+    public function getById($importId)
     {
-        $csv = $this->csvFactory->create();
-        $this->resource->load($csv, $csvId);
-        if (!$csv->getId()) {
-            throw new NoSuchEntityException(__('Csv with id "%1" does not exist.', $csvId));
+        $import = $this->importFactory->create();
+        $this->resource->load($import, $importId);
+        if (!$import->getId()) {
+            throw new NoSuchEntityException(__('Import with id "%1" does not exist.', $importId));
         }
-        return $csv->getDataModel();
+        return $import->getDataModel();
     }
 
     /**
@@ -123,11 +123,11 @@ class CsvRepository implements CsvRepositoryInterface
     public function getList(
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
-        $collection = $this->csvCollectionFactory->create();
+        $collection = $this->importCollectionFactory->create();
         
         $this->extensionAttributesJoinProcessor->process(
             $collection,
-            \Xigen\CsvUpload\Api\Data\CsvInterface::class
+            \Xigen\CsvUpload\Api\Data\ImportInterface::class
         );
         
         $this->collectionProcessor->process($criteria, $collection);
@@ -149,15 +149,15 @@ class CsvRepository implements CsvRepositoryInterface
      * {@inheritdoc}
      */
     public function delete(
-        \Xigen\CsvUpload\Api\Data\CsvInterface $csv
+        \Xigen\CsvUpload\Api\Data\ImportInterface $import
     ) {
         try {
-            $csvModel = $this->csvFactory->create();
-            $this->resource->load($csvModel, $csv->getCsvId());
-            $this->resource->delete($csvModel);
+            $importModel = $this->importFactory->create();
+            $this->resource->load($importModel, $import->getImportId());
+            $this->resource->delete($importModel);
         } catch (\Exception $exception) {
             throw new CouldNotDeleteException(__(
-                'Could not delete the Csv: %1',
+                'Could not delete the Import: %1',
                 $exception->getMessage()
             ));
         }
@@ -167,8 +167,8 @@ class CsvRepository implements CsvRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function deleteById($csvId)
+    public function deleteById($importId)
     {
-        return $this->delete($this->getById($csvId));
+        return $this->delete($this->getById($importId));
     }
 }

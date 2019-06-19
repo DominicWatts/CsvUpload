@@ -50,7 +50,7 @@ class Process extends \Magento\Backend\App\Action
      */
     public function execute()
     {
-        $data = array();
+        $data = [];
 
         try {
             $target = $this->mediaDirectory->getAbsolutePath('csv/' . $this->generic->getSessionId() . '/');
@@ -66,16 +66,17 @@ class Process extends \Magento\Backend\App\Action
             $result = $uploader->save($target, $newFileName);
 
             if ($result['file']) {
-                $mediaUrl = $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                $mediaUrl = $this->storeManager->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
                 $src = $mediaUrl . 'csv/' . $this->generic->getSessionId(). $newFileName;
 
                 $error = false;
                 $message = __("File has been successfully uploaded");
 
-                $data = array(
+                $data = [
                     'filename' => $newFileName,
                     'path' => $mediaUrl . 'csv/' . $this->generic->getSessionId() . '/' . $newFileName,
-                );
+                ];
 
                 $file = $this->csvFactory->create();
                 $file->setFilename($data['path']);

@@ -1,17 +1,16 @@
 <?php
 
 
-namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
+namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
- * Dlete controller class
+ * Delete controller class
  */
-class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
+class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 {
 
     /**
      * Constructor
-     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
@@ -19,12 +18,10 @@ class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Xigen\CsvUpload\Model\CsvFactory $csvFactory,
-        \Xigen\CsvUpload\Helper\Csv $csvHelper
+        \Xigen\CsvUpload\Model\ImportFactory $importFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
-        $this->csvFactory = $csvFactory;
-        $this->csvHelper = $csvHelper;
+        $this->importFactory = $importFactory;
         parent::__construct($context, $coreRegistry);
     }
 
@@ -38,31 +35,26 @@ class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         // check if we know what should be deleted
-        $id = $this->getRequest()->getParam('csv_id');
+        $id = $this->getRequest()->getParam('import_id');
         if ($id) {
             try {
                 // init model and delete
-                $model = $this->csvFactory->create();
+                $model = $this->importFactory->create();
                 $model->load($id);
                 $model->delete();
-
-                $path = $this->csvHelper->getFilepath();
-                $file = $this->csvHelper->getFilename($model->getFilename());
-                @unlink($path . $file);
-
                 // display success message
-                $this->messageManager->addSuccessMessage(__('You deleted the Csv.'));
+                $this->messageManager->addSuccessMessage(__('You deleted the Import.'));
                 // go to grid
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
                 // display error message
                 $this->messageManager->addErrorMessage($e->getMessage());
                 // go back to edit form
-                return $resultRedirect->setPath('*/*/edit', ['csv_id' => $id]);
+                return $resultRedirect->setPath('*/*/edit', ['import_id' => $id]);
             }
         }
         // display error message
-        $this->messageManager->addErrorMessage(__('We can\'t find a Csv to delete.'));
+        $this->messageManager->addErrorMessage(__('We can\'t find a Import to delete.'));
         // go to grid
         return $resultRedirect->setPath('*/*/');
     }

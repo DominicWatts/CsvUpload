@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Xigen\CsvUpload\Model\ResourceModel\Csv;
+namespace Xigen\CsvUpload\Model\ResourceModel\Import;
 
 /**
  * Collection class
@@ -17,8 +17,8 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
     protected function _construct()
     {
         $this->_init(
-            \Xigen\CsvUpload\Model\Csv::class,
-            \Xigen\CsvUpload\Model\ResourceModel\Csv::class
+            \Xigen\CsvUpload\Model\Import::class,
+            \Xigen\CsvUpload\Model\ResourceModel\Import::class
         );
     }
 }
