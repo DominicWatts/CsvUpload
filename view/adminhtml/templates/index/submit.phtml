@@ -1,0 +1,45 @@
+
+<a href="<?= $block->escapeUrl($block->getViewFileUrl('Xigen_CsvUpload::template.csv'));?>" target="_blank"><?= $block->escapeHtml(__("CSV Template")); ?></a>
+
+<form action="<?= $block->escapeUrl($block->getUrl('xigen_csvupload/index/process'))?>" method="post" enctype="multipart/form-data">
+    <?=$block->getBlockHtml('formkey')?>
+    <fieldset class="admin__fieldset admin__fieldset-import-service">
+        <div class="fieldset admin__field">
+            <label for="import_csv_file" class="admin__field-label"><span><?= $block->escapeHtml(__('Import CSV File'))?></span></label>
+            <div class="admin__field-control">
+                <input type="file" id="import_csv_file" name="import_csv_file" class="input-file required-entry"/>
+                <button title="<?= $block->escapeHtmlAttr(__('Import CSV File'))?>" type="button" class="action-default scalable import-submit" data-ui-id="widget-button-0">
+                    <span><?= $block->escapeHtml(__('Import CSV File'))?></span>
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<div class="notes">
+    <h3><?= $block->escapeHtml(__('Recommendation')); ?></h3>
+    <fieldset class="admin__fieldset">
+        <div class="fieldset admin__field">
+            <label class="admin__field-label"><span><?= $block->escapeHtml(__('File Type'))?></span></label>
+            <div class="admin__field-control">
+                <input class="admin__control-text" readonly="readonly" value="<?= $block->escapeHtmlAttr(__("Works best with CSV files saved in UTF-8 encoding")); ?>" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+<script>
+require(['jquery', "mage/mage", "loadingPopup"], function(jQuery){
+    jQuery('#import-form').mage('form').mage('validation');
+    (function ($) {
+        $('.import-submit').click(function(){
+            if($(':input[name="import_csv_file"]').val()) {
+                $('body').loadingPopup({
+                    timeout: false
+                });
+                $(this.form).submit();
+            }
+        });
+    })(jQuery);
+});
+</script>

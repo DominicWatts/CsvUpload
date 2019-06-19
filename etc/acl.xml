@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Xigen_CsvUpload::Csv" sortOrder="10" title="Csv">
+					<resource id="Xigen_CsvUpload::Csv_save" sortOrder="10" title="Save Csv"/>
+					<resource id="Xigen_CsvUpload::Csv_delete" sortOrder="20" title="Delete Csv"/>
+					<resource id="Xigen_CsvUpload::Csv_update" sortOrder="30" title="Update Csv"/>
+					<resource id="Xigen_CsvUpload::Csv_view" sortOrder="40" title="View Csv"/>
+				</resource>
+				<resource id="Xigen_CsvUpload::Import" sortOrder="10" title="Import">
+					<resource id="Xigen_CsvUpload::Import_save" sortOrder="10" title="Save Import"/>
+					<resource id="Xigen_CsvUpload::Import_delete" sortOrder="20" title="Delete Import"/>
+					<resource id="Xigen_CsvUpload::Import_update" sortOrder="30" title="Update Import"/>
+					<resource id="Xigen_CsvUpload::Import_view" sortOrder="40" title="View Import"/>
+				</resource>
+				<resource id="Xigen_CsvUpload::xigen_csvupload" sortOrder="10" title="xigen csvupload">
+					<resource id="Xigen_CsvUpload::index_submit" sortOrder="10" title="index submit"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>
