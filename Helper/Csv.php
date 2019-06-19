@@ -41,6 +41,11 @@ class Csv extends AbstractHelper
     private $dateTime;
 
     /**
+     * @var \Magento\Framework\Serialize\SerializerInterface
+     */
+    private $serializer;
+
+    /**
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
@@ -50,7 +55,8 @@ class Csv extends AbstractHelper
         \Xigen\CsvUpload\Model\CsvFactory $csvFactory,
         \Xigen\CsvUpload\Model\ImportFactory $importFactory,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
-        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
+        \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
+        \Magento\Framework\Serialize\SerializerInterface $serializer
     ) {
         $this->logger = $logger;
         $this->csvProcessor = $csvProcessor;
@@ -58,6 +64,7 @@ class Csv extends AbstractHelper
         $this->importFactory = $importFactory;
         $this->directoryList = $directoryList;
         $this->dateTime = $dateTime;
+        $this->serializer = $serializer;
         parent::__construct($context);
     }
 
@@ -172,7 +179,7 @@ class Csv extends AbstractHelper
             }
         }
 
-        $import->setFields(\Magento\Framework\Serialize\SerializerInterface::serialize($insertArray));
+        $import->setFields($this->serializer->serialize($insertArray));
 
         try {
             $import->save();

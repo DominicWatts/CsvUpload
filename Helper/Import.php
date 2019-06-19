@@ -47,6 +47,11 @@ class Import extends AbstractHelper
     private $productRepositoryInterface;
 
     /**
+     * @var \Magento\Framework\Serialize\SerializerInterface
+     */
+    private $serializer;
+
+    /**
      * @param \Magento\Framework\App\Helper\Context $context
      */
     public function __construct(
@@ -57,7 +62,8 @@ class Import extends AbstractHelper
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
         \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
         \Xigen\CsvUpload\Helper\Csv $csvHelper,
-        \Magento\Catalog\Api\ProductRepositoryInterface $productRepositoryInterface
+        \Magento\Catalog\Api\ProductRepositoryInterface $productRepositoryInterface,
+        \Magento\Framework\Serialize\SerializerInterface $serializer
     ) {
         $this->logger = $logger;
         $this->csvFactory = $csvFactory;
@@ -66,6 +72,7 @@ class Import extends AbstractHelper
         $this->dateTime = $dateTime;
         $this->csvHelper = $csvHelper;
         $this->productRepositoryInterface = $productRepositoryInterface;
+        $this->serializer = $serializer;
         parent::__construct($context);
     }
 
@@ -193,7 +200,7 @@ class Import extends AbstractHelper
             }
             $fields = [];
             if (isset($data['fields'])) {
-                $fields = \Magento\Framework\Serialize\SerializerInterface::unserialize($data['fields']);
+                $fields = $this->serializer->unserialize($data['fields']);
                 unset($data['fields']);
             }
             $array = array_merge($data, $fields);
