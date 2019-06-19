@@ -5,7 +5,6 @@ namespace Xigen\CsvUpload\Api\Data;
 
 interface ImportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 {
-
     const CREATED_AT = 'created_at';
     const FIELDS = 'fields';
     const SKU = 'sku';
