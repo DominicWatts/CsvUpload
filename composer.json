@@ -3,7 +3,7 @@
     "description": "Base for any type of csv upload and processing",
     "type": "magento2-module",
     "license": "proprietary",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "authors": [
         {
             "name": "Dominic Xigen",
