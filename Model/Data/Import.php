@@ -89,6 +89,44 @@ class Import extends \Magento\Framework\Api\AbstractExtensibleObject implements 
     }
 
     /**
+     * Get short_description
+     * @return string|null
+     */
+    public function getShortDescription()
+    {
+        return $this->_get(self::SHORT_DESCRIPTION);
+    }
+
+    /**
+     * Set short_description
+     * @param string $shortDescription
+     * @return \Xigen\CsvUpload\Api\Data\ImportInterface
+     */
+    public function setShortDescription($shortDescription)
+    {
+        return $this->setData(self::SHORT_DESCRIPTION, $shortDescription);
+    }
+
+    /**
+     * Get description
+     * @return string|null
+     */
+    public function getDescription()
+    {
+        return $this->_get(self::DESCRIPTION);
+    }
+
+    /**
+     * Set description
+     * @param string $description
+     * @return \Xigen\CsvUpload\Api\Data\ImportInterface
+     */
+    public function setDescription($description)
+    {
+        return $this->setData(self::DESCRIPTION, $description);
+    }
+
+    /**
      * Get created_at
      * @return string|null
      */

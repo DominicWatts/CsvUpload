@@ -73,6 +73,22 @@ class InstallSchema implements InstallSchemaInterface
         );
 
         $table_xigen_csvupload_import->addColumn(
+            'description',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            2048,
+            [],
+            'Description'
+        );
+
+        $table_xigen_csvupload_import->addColumn(
+            'short_description',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            2048,
+            [],
+            'Short Description'
+        );
+
+        $table_xigen_csvupload_import->addColumn(
             'fields',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             2048,
