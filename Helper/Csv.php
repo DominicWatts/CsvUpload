@@ -196,7 +196,7 @@ class Csv extends AbstractHelper
      */
     public function getTopLevelArray()
     {
-        return ['sku'];
+        return ['sku', 'description', 'short_description'];
     }
 
     /**

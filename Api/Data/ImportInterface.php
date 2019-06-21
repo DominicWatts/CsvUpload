@@ -9,6 +9,8 @@ interface ImportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     const FIELDS = 'fields';
     const SKU = 'sku';
     const IMPORT_ID = 'import_id';
+    const DESCRIPTION = 'description';
+    const SHORT_DESCRIPTION = 'short_description';
 
     /**
      * Get import_id
@@ -50,6 +52,31 @@ interface ImportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
     public function setExtensionAttributes(
         \Xigen\CsvUpload\Api\Data\ImportExtensionInterface $extensionAttributes
     );
+
+    /**
+     * Get description
+     * @return string|null
+     */
+    public function getDescription();
+
+    /**
+     * Set description
+     * @param string $description
+     * @return \Xigen\CsvUpload\Api\Data\ImportInterface
+     */
+    public function setDescription($description);
+
+    /**
+     * Get short_description
+     * @return string|null
+     */
+    public function getShortDescription();
+
+    /**
+     * Set short_description
+     * @param string $shortDescription
+     * @return \Xigen\CsvUpload\Api\Data\ImportInterface
+     */
 
     /**
      * Get fields
