@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Ui\Component\Listing\Column;
 
 /**
@@ -8,11 +7,15 @@ namespace Xigen\CsvUpload\Ui\Component\Listing\Column;
  */
 class CsvActions extends \Magento\Ui\Component\Listing\Columns\Column
 {
-    protected $urlBuilder;
     const URL_PATH_DELETE = 'xigen_csvupload/csv/delete';
     const URL_PATH_EDIT = 'xigen_csvupload/csv/edit';
     const URL_PATH_DETAILS = 'xigen_csvupload/csv/details';
     const URL_PATH_PROCESS = 'xigen_csvupload/csv/process';
+
+    /**
+     * @var \Magento\Framework\UrlInterface
+     */
+    protected $urlBuilder;
 
     /**
      * @param \Magento\Framework\View\Element\UiComponent\ContextInterface $context
@@ -34,7 +37,6 @@ class CsvActions extends \Magento\Ui\Component\Listing\Columns\Column
 
     /**
      * Prepare Data Source
-     *
      * @param array $dataSource
      * @return array
      */
@@ -61,20 +63,20 @@ class CsvActions extends \Magento\Ui\Component\Listing\Columns\Column
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_DELETE,
                                 [
-                                    'csv_id' => $item['csv_id']
+                                    'csv_id' => $item['csv_id'],
                                 ]
                             ),
                             'label' => __('Delete'),
                             'confirm' => [
                                 'title' => __('Delete "${ $.$data.csv_id }"'),
-                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.csv_id }" record?')
-                            ]
-                        ]
+                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.csv_id }" record?'),
+                            ],
+                        ],
                     ];
                 }
             }
         }
-        
+
         return $dataSource;
     }
 }

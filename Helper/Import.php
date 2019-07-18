@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
@@ -52,7 +51,16 @@ class Import extends AbstractHelper
     private $serializer;
 
     /**
+     * Import constructor.
      * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Xigen\CsvUpload\Model\CsvFactory $csvFactory
+     * @param \Xigen\CsvUpload\Model\ImportFactory $importFactory
+     * @param \Magento\Framework\App\Filesystem\DirectoryList $directoryList
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
+     * @param Csv $csvHelper
+     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepositoryInterface
+     * @param \Magento\Framework\Serialize\SerializerInterface $serializer
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
@@ -101,7 +109,7 @@ class Import extends AbstractHelper
             $page = floor(($offset / $limit) + 1);
             $importCollection->setCurPage($page);
         }
-    
+
         return $importCollection;
     }
 
@@ -131,7 +139,7 @@ class Import extends AbstractHelper
             \Magento\Catalog\Model\Product\Type::TYPE_VIRTUAL,
             \Magento\Downloadable\Model\Product\Type::TYPE_DOWNLOADABLE,
             \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE,
-            \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE
+            \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE,
         ];
         return $array;
     }

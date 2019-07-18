@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml\Index;
 
 use Magento\Framework\Controller\ResultFactory;
@@ -10,10 +9,75 @@ use Magento\Framework\Controller\ResultFactory;
  */
 class Process extends \Magento\Backend\App\Action
 {
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
+    private $resultPageFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context  $context
+     * @var \Magento\Framework\Json\Helper\Data
+     */
+    private $jsonHelper;
+
+    /**
+     * @var \Magento\MediaStorage\Model\File\UploaderFactory
+     */
+    private $uploaderFactory;
+
+    /**
+     * @var \Magento\Framework\Image\AdapterFactory
+     */
+    private $adapterFactory;
+
+    /**
+     * @var \Magento\Framework\Filesystem
+     */
+    private $filesystem;
+
+    /**
+     * @var \Magento\Framework\Controller\Result\JsonFactory
+     */
+    private $resultJsonFactory;
+
+    /**
+     * @var \Magento\Framework\Filesystem\Directory\WriteInterface
+     */
+    private $mediaDirectory;
+
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @var \Magento\Framework\Session\Generic
+     */
+    private $generic;
+
+    /**
+     * @var \Xigen\CsvUpload\Model\CsvFactory
+     */
+    private $csvFactory;
+
+    /**
+     * Process constructor.
+     * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Magento\Framework\Json\Helper\Data $jsonHelper
+     * @param \Magento\MediaStorage\Model\File\UploaderFactory $uploaderFactory
+     * @param \Magento\Framework\Image\AdapterFactory $adapterFactory
+     * @param \Magento\Framework\Filesystem $filesystem
+     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\Framework\Session\Generic $generic
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Xigen\CsvUpload\Model\CsvFactory $csvFactory
+     * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
@@ -39,13 +103,12 @@ class Process extends \Magento\Backend\App\Action
         $this->logger = $logger;
         $this->generic = $generic;
         $this->csvFactory = $csvFactory;
-        
+
         parent::__construct($context);
     }
 
     /**
      * Execute view action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
@@ -54,9 +117,9 @@ class Process extends \Magento\Backend\App\Action
 
         try {
             $target = $this->mediaDirectory->getAbsolutePath('csv/' . $this->generic->getSessionId() . '/');
-                
+
             $uploader = $this->uploaderFactory->create(['fileId' => 'import_csv_file']);
-                                    
+
             $fileType = $uploader->getFileExtension();
             $newFileName = uniqid() . '.' . $fileType;
 
@@ -68,9 +131,7 @@ class Process extends \Magento\Backend\App\Action
             if ($result['file']) {
                 $mediaUrl = $this->storeManager->getStore()
                     ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-                $src = $mediaUrl . 'csv/' . $this->generic->getSessionId(). $newFileName;
 
-                $error = false;
                 $message = __("File has been successfully uploaded");
 
                 $data = [
@@ -85,7 +146,7 @@ class Process extends \Magento\Backend\App\Action
                 $this->messageManager->addSuccess(__($message));
             }
         } catch (\Exception $e) {
-            $error = true;
+            
             $message = $e->getMessage();
             $this->messageManager->addError(__($message));
         }

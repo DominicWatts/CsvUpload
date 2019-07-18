@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
@@ -8,11 +7,21 @@ namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
  */
 class InlineEdit extends \Magento\Backend\App\Action
 {
-    protected $jsonFactory;
+    /**
+     * @var \Magento\Framework\Controller\Result\JsonFactory
+     */
+    private $jsonFactory;
 
     /**
+     * @var \Xigen\CsvUpload\Model\CsvFactory
+     */
+    private $csvFactory;
+
+    /**
+     * InlineEdit constructor.
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
+     * @param \Xigen\CsvUpload\Model\CsvFactory $csvFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
@@ -26,7 +35,6 @@ class InlineEdit extends \Magento\Backend\App\Action
 
     /**
      * Inline edit action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
@@ -35,7 +43,7 @@ class InlineEdit extends \Magento\Backend\App\Action
         $resultJson = $this->jsonFactory->create();
         $error = false;
         $messages = [];
-        
+
         if ($this->getRequest()->getParam('isAjax')) {
             $postItems = $this->getRequest()->getParam('items', []);
             if (!count($postItems)) {
@@ -55,10 +63,10 @@ class InlineEdit extends \Magento\Backend\App\Action
                 }
             }
         }
-        
+
         return $resultJson->setData([
             'messages' => $messages,
-            'error' => $error
+            'error' => $error,
         ]);
     }
 }

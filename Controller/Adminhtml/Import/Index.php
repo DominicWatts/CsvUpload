@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
@@ -8,11 +7,13 @@ namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
  */
 class Index extends \Magento\Backend\App\Action
 {
-    protected $resultPageFactory;
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
+    private $resultPageFactory;
 
     /**
      * Constructor
-     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
@@ -26,7 +27,6 @@ class Index extends \Magento\Backend\App\Action
 
     /**
      * Index action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()

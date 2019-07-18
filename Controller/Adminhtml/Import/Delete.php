@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
@@ -8,11 +7,22 @@ namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
  */
 class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 {
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
+    private $resultPageFactory;
 
     /**
-     * Constructor
+     * @var \Xigen\CsvUpload\Model\ImportFactory
+     */
+    private $importFactory;
+
+    /**
+     * Delete constructor.
      * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Xigen\CsvUpload\Model\ImportFactory $importFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
@@ -27,7 +37,6 @@ class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 
     /**
      * Delete action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()

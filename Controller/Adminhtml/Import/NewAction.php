@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
@@ -8,7 +7,10 @@ namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
  */
 class NewAction extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 {
-    protected $resultForwardFactory;
+    /**
+     * @var \Magento\Backend\Model\View\Result\ForwardFactory
+     */
+    private $resultForwardFactory;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
@@ -26,7 +28,6 @@ class NewAction extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 
     /**
      * New action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
@@ -8,12 +7,22 @@ namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
  */
 class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 {
-    protected $resultPageFactory;
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
+    private $resultPageFactory;
 
     /**
+     * @var \Xigen\CsvUpload\Model\CsvFactory
+     */
+    private $csvFactory;
+
+    /**
+     * Edit constructor.
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Xigen\CsvUpload\Model\CsvFactory $csvFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
@@ -28,7 +37,6 @@ class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 
     /**
      * Edit action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
@@ -36,7 +44,7 @@ class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('csv_id');
         $model = $this->csvFactory->create();
-        
+
         // 2. Initial checking
         if ($id) {
             $model->load($id);
@@ -48,7 +56,7 @@ class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
             }
         }
         $this->_coreRegistry->register('xigen_csvupload_csv', $model);
-        
+
         // 3. Build edit form
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();

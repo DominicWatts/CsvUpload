@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model;
 
 use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
@@ -23,16 +22,59 @@ use Xigen\CsvUpload\Api\Data\CsvInterfaceFactory;
  */
 class CsvRepository implements CsvRepositoryInterface
 {
+    /**
+     * @var ResourceCsv
+     */
     protected $resource;
+
+    /**
+     * @var JoinProcessorInterface
+     */
     protected $extensionAttributesJoinProcessor;
+
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
     protected $extensibleDataObjectConverter;
+
+    /**
+     * @var DataObjectProcessor
+     */
     protected $dataObjectProcessor;
+
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
+
+    /**
+     * @var CollectionProcessorInterface
+     */
     private $collectionProcessor;
+
+    /**
+     * @var CsvInterfaceFactory
+     */
     protected $dataCsvFactory;
+
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
+
+    /**
+     * @var CsvFactory
+     */
     protected $csvFactory;
+
+    /**
+     * @var CsvCollectionFactory
+     */
     protected $csvCollectionFactory;
+
+    /**
+     * @var CsvSearchResultsInterfaceFactory
+     */
     protected $searchResultsFactory;
 
     /**
@@ -80,19 +122,15 @@ class CsvRepository implements CsvRepositoryInterface
     public function save(
         \Xigen\CsvUpload\Api\Data\CsvInterface $csv
     ) {
-        /* if (empty($csv->getStoreId())) {
-            $storeId = $this->storeManager->getStore()->getId();
-            $csv->setStoreId($storeId);
-        } */
         
         $csvData = $this->extensibleDataObjectConverter->toNestedArray(
             $csv,
             [],
             \Xigen\CsvUpload\Api\Data\CsvInterface::class
         );
-        
+
         $csvModel = $this->csvFactory->create()->setData($csvData);
-        
+
         try {
             $this->resource->save($csvModel);
         } catch (\Exception $exception) {
@@ -124,22 +162,22 @@ class CsvRepository implements CsvRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->csvCollectionFactory->create();
-        
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             \Xigen\CsvUpload\Api\Data\CsvInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;

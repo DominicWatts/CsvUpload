@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml;
 
 /**
@@ -9,6 +8,10 @@ namespace Xigen\CsvUpload\Controller\Adminhtml;
 abstract class Import extends \Magento\Backend\App\Action
 {
     const ADMIN_RESOURCE = 'Xigen_CsvUpload::top_level';
+
+    /**
+     * @var \Magento\Framework\Registry
+     */
     protected $_coreRegistry;
 
     /**
@@ -25,7 +28,6 @@ abstract class Import extends \Magento\Backend\App\Action
 
     /**
      * Init page
-     *
      * @param \Magento\Backend\Model\View\Result\Page $resultPage
      * @return \Magento\Backend\Model\View\Result\Page
      */

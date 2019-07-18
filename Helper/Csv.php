@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
@@ -46,7 +45,15 @@ class Csv extends AbstractHelper
     private $serializer;
 
     /**
+     * Csv constructor.
      * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Magento\Framework\File\Csv $csvProcessor
+     * @param \Xigen\CsvUpload\Model\CsvFactory $csvFactory
+     * @param \Xigen\CsvUpload\Model\ImportFactory $importFactory
+     * @param \Magento\Framework\App\Filesystem\DirectoryList $directoryList
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
+     * @param \Magento\Framework\Serialize\SerializerInterface $serializer
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
@@ -170,7 +177,7 @@ class Csv extends AbstractHelper
         }
 
         $import = $this->importFactory->create();
-        
+
         $topLevelArray = $this->getTopLevelArray();
         foreach ($topLevelArray as $topLevelItem) {
             if (isset($insertArray[$topLevelItem])) {

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model;
 
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
@@ -23,16 +22,59 @@ use Magento\Framework\Reflection\DataObjectProcessor;
  */
 class ImportRepository implements ImportRepositoryInterface
 {
+    /**
+     * @var ImportCollectionFactory
+     */
     protected $importCollectionFactory;
+
+    /**
+     * @var ResourceImport
+     */
     protected $resource;
+
+    /**
+     * @var JoinProcessorInterface
+     */
     protected $extensionAttributesJoinProcessor;
+
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
     protected $extensibleDataObjectConverter;
+
+    /**
+     * @var DataObjectProcessor
+     */
     protected $dataObjectProcessor;
+
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
+
+    /**
+     * @var CollectionProcessorInterface
+     */
     private $collectionProcessor;
+
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
+
+    /**
+     * @var ImportInterfaceFactory
+     */
     protected $dataImportFactory;
+
+    /**
+     * @var ImportSearchResultsInterfaceFactory
+     */
     protected $searchResultsFactory;
+
+    /**
+     * @var ImportFactory
+     */
     protected $importFactory;
 
     /**
@@ -84,15 +126,15 @@ class ImportRepository implements ImportRepositoryInterface
             $storeId = $this->storeManager->getStore()->getId();
             $import->setStoreId($storeId);
         } */
-        
+
         $importData = $this->extensibleDataObjectConverter->toNestedArray(
             $import,
             [],
             \Xigen\CsvUpload\Api\Data\ImportInterface::class
         );
-        
+
         $importModel = $this->importFactory->create()->setData($importData);
-        
+
         try {
             $this->resource->save($importModel);
         } catch (\Exception $exception) {
@@ -124,22 +166,22 @@ class ImportRepository implements ImportRepositoryInterface
         \Magento\Framework\Api\SearchCriteriaInterface $criteria
     ) {
         $collection = $this->importCollectionFactory->create();
-        
+
         $this->extensionAttributesJoinProcessor->process(
             $collection,
             \Xigen\CsvUpload\Api\Data\ImportInterface::class
         );
-        
+
         $this->collectionProcessor->process($criteria, $collection);
-        
+
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($criteria);
-        
+
         $items = [];
         foreach ($collection as $model) {
             $items[] = $model->getDataModel();
         }
-        
+
         $searchResults->setItems($items);
         $searchResults->setTotalCount($collection->getSize());
         return $searchResults;

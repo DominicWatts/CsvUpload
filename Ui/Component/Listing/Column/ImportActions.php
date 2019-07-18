@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Ui\Component\Listing\Column;
 
 /**
@@ -12,6 +11,10 @@ class ImportActions extends \Magento\Ui\Component\Listing\Columns\Column
     const URL_PATH_DELETE = 'xigen_csvupload/import/delete';
     const URL_PATH_DETAILS = 'xigen_csvupload/import/details';
     const URL_PATH_PROCESS = 'xigen_csvupload/import/process';
+
+    /**
+     * @var \Magento\Framework\UrlInterface
+     */
     protected $urlBuilder;
 
     /**
@@ -34,7 +37,6 @@ class ImportActions extends \Magento\Ui\Component\Listing\Columns\Column
 
     /**
      * Prepare Data Source
-     *
      * @param array $dataSource
      * @return array
      */
@@ -48,20 +50,20 @@ class ImportActions extends \Magento\Ui\Component\Listing\Columns\Column
                             'href' => $this->urlBuilder->getUrl(
                                 static::URL_PATH_DELETE,
                                 [
-                                    'import_id' => $item['import_id']
+                                    'import_id' => $item['import_id'],
                                 ]
                             ),
                             'label' => __('Delete'),
                             'confirm' => [
                                 'title' => __('Delete "${ $.$data.import_id }"'),
-                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.import_id }" record?')
-                            ]
-                        ]
+                                'message' => __('Are you sure you wan\'t to delete a "${ $.$data.import_id }" record?'),
+                            ],
+                        ],
                     ];
                 }
             }
         }
-        
+
         return $dataSource;
     }
 }
