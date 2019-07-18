@@ -17,26 +17,26 @@ class MassDelete extends \Magento\Backend\App\Action
     /**
      * @var \Xigen\CsvUpload\Model\CsvFactory
      */
-    private $csvManagerFactory;
+    private $csvFactory;
 
     /**
      * assDelete constructor
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Ui\Component\MassAction\Filter $filter
-     * @param \Xigen\CsvUpload\Model\CsvFactory $csvManagerFactory
+     * @param \Xigen\CsvUpload\Model\CsvFactory $csvFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Ui\Component\MassAction\Filter $filter,
-        \Xigen\CsvUpload\Model\CsvFactory $csvManagerFactory
+        \Xigen\CsvUpload\Model\CsvFactory $csvFactory
     ) {
         $this->filter = $filter;
-        $this->csvManagerFactory = $csvManagerFactory;
+        $this->csvFactory = $csvFactory;
         parent::__construct($context);
     }
+
     /**
      * Execute action.
-     *
      * @return \Magento\Backend\Model\View\Result\Redirect
      * @throws \Magento\Framework\Exception\LocalizedException|\Exception
      */
@@ -44,7 +44,7 @@ class MassDelete extends \Magento\Backend\App\Action
     {
         $ids = $this->getRequest()->getPost('selected');
         if ($ids) {
-            $collection = $this->csvManagerFactory->create()
+            $collection = $this->csvFactory->create()
                 ->getCollection()
                 ->addFieldToFilter('csv_id', ['in' => $ids]);
             $collectionSize = $collection->getSize();
@@ -60,11 +60,11 @@ class MassDelete extends \Magento\Backend\App\Action
             if ($deletedItems != 0) {
                 if ($collectionSize != $deletedItems) {
                     $this->messageManager->addErrorMessage(
-                        __('Failed to delete %1 account manager(s).', $collectionSize - $deletedItems)
+                        __('Failed to delete %1 file(s).', $collectionSize - $deletedItems)
                     );
                 }
                 $this->messageManager->addSuccessMessage(
-                    __('A total of %1 account manager(s) have been deleted.', $deletedItems)
+                    __('A total of %1 file(s) have been deleted.', $deletedItems)
                 );
             }
         }

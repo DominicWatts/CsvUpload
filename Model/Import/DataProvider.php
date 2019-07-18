@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model\Import;
 
 use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory;
@@ -11,13 +10,23 @@ use Magento\Framework\App\Request\DataPersistorInterface;
  */
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
+    /**
+     * @var \Xigen\CsvUpload\Model\ResourceModel\Import\Collection
+     */
     protected $collection;
+
+    /**
+     * @var DataPersistorInterface
+     */
     protected $dataPersistor;
+
+    /**
+     * @var array
+     */
     protected $loadedData;
 
     /**
      * Constructor
-     *
      * @param string $name
      * @param string $primaryFieldName
      * @param string $requestFieldName
@@ -42,7 +51,6 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 
     /**
      * Get data
-     *
      * @return array
      */
     public function getData()
@@ -55,14 +63,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             $this->loadedData[$model->getId()] = $model->getData();
         }
         $data = $this->dataPersistor->get('xigen_csvupload_import');
-        
+
         if (!empty($data)) {
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
             $this->loadedData[$model->getId()] = $model->getData();
             $this->dataPersistor->clear('xigen_csvupload_import');
         }
-        
+
         return $this->loadedData;
     }
 }

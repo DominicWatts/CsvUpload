@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
@@ -8,40 +7,53 @@ namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
  */
 class Truncate extends \Magento\Backend\App\Action
 {
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
     protected $resultPageFactory;
 
     /**
-     * Constructor
-     *
+     * @var \Magento\Framework\App\ResourceConnection
+     */
+    private $resource;
+
+    /**
+     * @var \Magento\Framework\DB\Adapter\AdapterInterface
+     */
+    private $connection;
+
+    /**
+     * Truncate constructor.
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Magento\Framework\App\ResourceConnection $resource
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        \Magento\Framework\App\ResourceConnection $resource
     ) {
         $this->resultPageFactory = $resultPageFactory;
+        $this->resource = $resource;
+        $this->connection = $resource->getConnection();
         parent::__construct($context);
     }
 
     /**
      * Index action
-     *
      * @return \Magento\Framework\Controller\ResultInterface
      */
     public function execute()
     {
-        $resource = $this->_objectManager->create(\Magento\Framework\App\ResourceConnection::class);
-        $connection = $resource->getConnection();
-        $tableName = $resource->getTableName('xigen_csvupload_import');
+        $tableName = $this->resource->getTableName('xigen_csvupload_import');
 
         try {
-            $connection->truncateTable($tableName);
+            $this->connection->truncateTable($tableName);
             $this->messageManager->addSuccessMessage(__("Truncate successful"));
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
         } catch (\Exception $e) {
-            $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the Csv.'));
+            $this->messageManager->addExceptionMessage($e, __('Something went wrong while modifying the Imports.'));
         }
 
         $resultRedirect = $this->resultRedirectFactory->create();

@@ -1,13 +1,13 @@
 <?php
 
-namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
+namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
- * Mass-Status Controller.
+ * Mass-Delete Controller.
  */
-class MassStatus extends \Magento\Backend\App\Action
+class MassDelete extends \Magento\Backend\App\Action
 {
-    const ADMIN_RESOURCE = 'Xigen_CsvUpload::Csv';
+    const ADMIN_RESOURCE = 'Xigen_CsvUpload::Import';
 
     /**
      * @var \Magento\Ui\Component\MassAction\Filter
@@ -15,23 +15,23 @@ class MassStatus extends \Magento\Backend\App\Action
     private $filter;
 
     /**
-     * @var \Xigen\CsvUpload\Model\CsvFactory
+     * @var \Xigen\CsvUpload\Model\ImportFactory
      */
-    private $csvFactory;
+    private $importFactory;
 
     /**
-     * MassStatus constructor
+     * assDelete constructor
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Ui\Component\MassAction\Filter $filter
-     * @param \Xigen\CsvUpload\Model\CsvFactory $csvFactory
+     * @param \Xigen\CsvUpload\Model\ImportFactory $importFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Ui\Component\MassAction\Filter $filter,
-        \Xigen\CsvUpload\Model\CsvFactory $csvFactory
+        \Xigen\CsvUpload\Model\ImportFactory $importFactory
     ) {
         $this->filter = $filter;
-        $this->csvFactory = $csvFactory;
+        $this->importFactory = $importFactory;
         parent::__construct($context);
     }
 
@@ -43,30 +43,28 @@ class MassStatus extends \Magento\Backend\App\Action
     public function execute()
     {
         $ids = $this->getRequest()->getPost('selected');
-        $processed = $this->getRequest()->getParam('processed');
         if ($ids) {
-            $collection = $this->csvFactory->create()
+            $collection = $this->importFactory->create()
                 ->getCollection()
-                ->addFieldToFilter('csv_id', ['in' => $ids]);
+                ->addFieldToFilter('import_id', ['in' => $ids]);
             $collectionSize = $collection->getSize();
-            $updatedItems = 0;
+            $deletedItems = 0;
             foreach ($collection as $item) {
                 try {
-                    $item->setProcessed($processed);
-                    $item->save();
-                    $updatedItems++;
+                    $item->delete();
+                    $deletedItems++;
                 } catch (\Exception $e) {
                     $this->messageManager->addErrorMessage($e->getMessage());
                 }
             }
-            if ($updatedItems != 0) {
-                if ($collectionSize != $updatedItems) {
+            if ($deletedItems != 0) {
+                if ($collectionSize != $deletedItems) {
                     $this->messageManager->addErrorMessage(
-                        __('Failed to update %1 csv file(s).', $collectionSize - $updatedItems)
+                        __('Failed to delete %1 imports.', $collectionSize - $deletedItems)
                     );
                 }
                 $this->messageManager->addSuccessMessage(
-                    __('A total of %1 csv file(s) have been updated.', $updatedItems)
+                    __('A total of %1 import(s) have been deleted.', $deletedItems)
                 );
             }
         }

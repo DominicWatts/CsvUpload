@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model\Csv;
 
 use Xigen\CsvUpload\Model\ResourceModel\Csv\CollectionFactory;
@@ -11,8 +10,19 @@ use Magento\Framework\App\Request\DataPersistorInterface;
  */
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
+    /**
+     * @var array
+     */
     protected $loadedData;
+
+    /**
+     * @var DataPersistorInterface
+     */
     protected $dataPersistor;
+
+    /**
+     * @var \Xigen\CsvUpload\Model\ResourceModel\Csv\Collection
+     */
     protected $collection;
 
     /**
@@ -52,14 +62,14 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
             $this->loadedData[$model->getId()] = $model->getData();
         }
         $data = $this->dataPersistor->get('xigen_csvupload_csv');
-        
+
         if (!empty($data)) {
             $model = $this->collection->getNewEmptyItem();
             $model->setData($data);
             $this->loadedData[$model->getId()] = $model->getData();
             $this->dataPersistor->clear('xigen_csvupload_csv');
         }
-        
+
         return $this->loadedData;
     }
 }

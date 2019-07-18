@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model;
 
 use Magento\Framework\Api\DataObjectHelper;
@@ -12,9 +11,25 @@ use Xigen\CsvUpload\Api\Data\CsvInterfaceFactory;
  */
 class Csv extends \Magento\Framework\Model\AbstractModel
 {
+    /**
+     * @var string
+     */
     protected $_eventPrefix = 'xigen_csvupload_csv';
+
+    /**
+     * @var DataObjectHelper
+     */
     protected $dataObjectHelper;
+
+    /**
+     * @var CsvInterfaceFactory
+     */
     protected $csvDataFactory;
+
+    /**
+     * @var \Magento\Framework\Stdlib\DateTime\DateTime
+     */
+    private $dateTime;
 
     /**
      * @param \Magento\Framework\Model\Context $context
@@ -23,7 +38,7 @@ class Csv extends \Magento\Framework\Model\AbstractModel
      * @param DataObjectHelper $dataObjectHelper
      * @param \Xigen\CsvUpload\Model\ResourceModel\Csv $resource
      * @param \Xigen\CsvUpload\Model\ResourceModel\Csv\Collection $resourceCollection
-     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
      * @param array $data
      */
     public function __construct(
@@ -61,14 +76,14 @@ class Csv extends \Magento\Framework\Model\AbstractModel
     public function getDataModel()
     {
         $csvData = $this->getData();
-        
+
         $csvDataObject = $this->csvDataFactory->create();
         $this->dataObjectHelper->populateWithArray(
             $csvDataObject,
             $csvData,
             CsvInterface::class
         );
-        
+
         return $csvDataObject;
     }
 }
