@@ -10,7 +10,6 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
  */
 class BackButton extends GenericButton implements ButtonProviderInterface
 {
-
     /**
      * @return array
      */
@@ -26,7 +25,6 @@ class BackButton extends GenericButton implements ButtonProviderInterface
 
     /**
      * Get URL for back (reset) button
-     *
      * @return string
      */
     public function getBackUrl()

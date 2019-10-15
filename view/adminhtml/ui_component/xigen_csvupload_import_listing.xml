@@ -1,99 +1,88 @@
 <?xml version="1.0" ?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-	<argument name="data" xsi:type="array">
-		<item name="js_config" xsi:type="array">
-			<item name="provider" xsi:type="string">xigen_csvupload_import_listing.xigen_csvupload_import_listing_data_source</item>
-		</item>
-	</argument>
-	<settings>
-		<spinner>xigen_csvupload_import_columns</spinner>
-		<deps>
-			<dep>xigen_csvupload_import_listing.xigen_csvupload_import_listing_data_source</dep>
-		</deps>
-		<buttons>
-			<button name="truncate">
-				<url path="*/*/truncate"/>
-				<class>secondary</class>
-				<label translate="true">Truncate Temp Table</label>
-			</button>
-		</buttons>
-	</settings>
-	<dataSource component="Magento_Ui/js/grid/provider" name="xigen_csvupload_import_listing_data_source">
-		<settings>
-			<updateUrl path="mui/index/render"/>
-		</settings>
-		<aclResource>Xigen_CsvUpload::Import</aclResource>
-		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="xigen_csvupload_import_listing_data_source">
-			<settings>
-				<requestFieldName>id</requestFieldName>
-				<primaryFieldName>import_id</primaryFieldName>
-			</settings>
-		</dataProvider>
-	</dataSource>
-	<listingToolbar name="listing_top">
-		<settings>
-			<sticky>true</sticky>
-		</settings>
-		<bookmark name="bookmarks"/>
-		<columnsControls name="columns_controls"/>
-		<filters name="listing_filters"/>
-		<massaction name="listing_massaction">
-			<action name="delete">
-				<settings>
-					<confirm>
-						<message translate="true">Are you sure you want to delete the temp table entries?</message>
-						<title translate="true">Delete items</title>
-					</confirm>
-					<url path="*/*/massDelete"/>
-					<type>delete</type>
-					<label translate="true">Delete</label>
-				</settings>
-			</action>
-			<action name="insert">
-				<settings>
-					<confirm>
-						<message translate="true">Are you sure you want to insert the temp table entries into the catalog?</message>
-						<title translate="true">Insert items</title>
-					</confirm>
-					<url path="*/*/massProcess"/>
-					<type>insert</type>
-					<label translate="true">Insert</label>
-				</settings>
-			</action>
-		</massaction>
-		<paging name="listing_paging"/>
-	</listingToolbar>
-	<columns name="xigen_csvupload_import_columns">
-		<selectionsColumn name="ids">
-			<settings>
-				<indexField>import_id</indexField>
-			</settings>
-		</selectionsColumn>
-		<column name="import_id">
-			<settings>
-				<filter>text</filter>
-				<sorting>asc</sorting>
-				<label translate="true">ID</label>
-			</settings>
-		</column>
-		<column name="sku">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">Sku</label>
-			</settings>
-		</column>
-		<column name="created_at">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">Created At</label>
-			</settings>
-		</column>
-		<actionsColumn class="Xigen\CsvUpload\Ui\Component\Listing\Column\ImportActions" name="actions">
-			<settings>
-				<indexField>import_id</indexField>
-				<resizeEnabled>false</resizeEnabled>
-				<resizeDefaultWidth>107</resizeDefaultWidth>
-			</settings>
-		</actionsColumn>
-	</columns>
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">xigen_csvupload_import_listing.xigen_csvupload_import_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>xigen_csvupload_import_columns</spinner>
+        <deps>
+            <dep>xigen_csvupload_import_listing.xigen_csvupload_import_listing_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="truncate">
+                <url path="*/*/truncate"/>
+                <class>secondary</class>
+                <label translate="true">Truncate Temp Table</label>
+            </button>
+        </buttons>
+    </settings>
+    <dataSource component="Magento_Ui/js/grid/provider" name="xigen_csvupload_import_listing_data_source">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Xigen_CsvUpload::Import</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="xigen_csvupload_import_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>import_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete the temp table entries?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="*/*/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="xigen_csvupload_import_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>import_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="import_id">
+            <settings>
+                <filter>text</filter>
+                <sorting>asc</sorting>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+        <column name="sku">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Sku</label>
+            </settings>
+        </column>
+        <column name="created_at">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+        <actionsColumn class="Xigen\CsvUpload\Ui\Component\Listing\Column\ImportActions" name="actions">
+            <settings>
+                <indexField>import_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
 </listing>

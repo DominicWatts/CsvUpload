@@ -146,7 +146,6 @@ class Process extends \Magento\Backend\App\Action
                 $this->messageManager->addSuccess(__($message));
             }
         } catch (\Exception $e) {
-            
             $message = $e->getMessage();
             $this->messageManager->addError(__($message));
         }

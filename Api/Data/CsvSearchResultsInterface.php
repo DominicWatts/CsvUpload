@@ -3,6 +3,10 @@
 
 namespace Xigen\CsvUpload\Api\Data;
 
+/**
+ * Interface CsvSearchResultsInterface
+ * @package Xigen\CsvUpload\Api\Data
+ */
 interface CsvSearchResultsInterface extends \Magento\Framework\Api\SearchResultsInterface
 {
 

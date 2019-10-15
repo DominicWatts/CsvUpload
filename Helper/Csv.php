@@ -45,6 +45,11 @@ class Csv extends AbstractHelper
     private $serializer;
 
     /**
+     * @var \Magento\Framework\Filesystem\Io\File
+     */
+    private $fileSystemIo;
+
+    /**
      * Csv constructor.
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Psr\Log\LoggerInterface $logger
@@ -54,6 +59,7 @@ class Csv extends AbstractHelper
      * @param \Magento\Framework\App\Filesystem\DirectoryList $directoryList
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $dateTime
      * @param \Magento\Framework\Serialize\SerializerInterface $serializer
+     * @param \Magento\Framework\Filesystem\Io\File $fileSystemIo
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
@@ -63,7 +69,8 @@ class Csv extends AbstractHelper
         \Xigen\CsvUpload\Model\ImportFactory $importFactory,
         \Magento\Framework\App\Filesystem\DirectoryList $directoryList,
         \Magento\Framework\Stdlib\DateTime\DateTime $dateTime,
-        \Magento\Framework\Serialize\SerializerInterface $serializer
+        \Magento\Framework\Serialize\SerializerInterface $serializer,
+        \Magento\Framework\Filesystem\Io\File $fileSystemIo
     ) {
         $this->logger = $logger;
         $this->csvProcessor = $csvProcessor;
@@ -72,6 +79,7 @@ class Csv extends AbstractHelper
         $this->directoryList = $directoryList;
         $this->dateTime = $dateTime;
         $this->serializer = $serializer;
+        $this->fileSystemIo = $fileSystemIo;
         parent::__construct($context);
     }
 
@@ -124,7 +132,8 @@ class Csv extends AbstractHelper
         $parts = explode('/', $removePrefix[1]);
         krsort($parts);
         $parts = array_values($parts);
-        return '/' . $parts[1] . '/' . basename($url);
+        $fileInfo = $this->fileSystemIo->getPathInfo($url);
+        return '/' . $parts[1] . '/' . $fileInfo['basename'];
     }
 
     /**

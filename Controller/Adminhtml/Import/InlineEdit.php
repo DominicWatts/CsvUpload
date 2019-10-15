@@ -54,7 +54,7 @@ class InlineEdit extends \Magento\Backend\App\Action
                     /** @var \Xigen\CsvUpload\Model\Import $model */
                     $model = $this->importFactory->create()->load($modelId);
                     try {
-                        $model->setData(array_merge($model->getData(), $postItems[$modelId]));
+                        $model->setData($postItems[$modelId] + $model->getData());
                         $model->save();
                     } catch (\Exception $e) {
                         $messages[] = "[Import ID: {$modelId}]  {$e->getMessage()}";

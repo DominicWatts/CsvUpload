@@ -62,7 +62,9 @@ class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 
                 $path = $this->csvHelper->getFilepath();
                 $file = $this->csvHelper->getFilename($model->getFilename());
+                // phpcs:disable
                 @unlink($path . $file);
+                // phpcs:enable
 
                 // display success message
                 $this->messageManager->addSuccessMessage(__('You deleted the Csv.'));

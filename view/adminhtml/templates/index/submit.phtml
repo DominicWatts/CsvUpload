@@ -1,6 +1,4 @@
 
-<a href="<?= $block->escapeUrl($block->getViewFileUrl('Xigen_CsvUpload::template.csv'));?>" target="_blank"><?= $block->escapeHtml(__("CSV Template")); ?></a>
-
 <form action="<?= $block->escapeUrl($block->getUrl('xigen_csvupload/index/process'))?>" method="post" enctype="multipart/form-data">
     <?=$block->getBlockHtml('formkey')?>
     <fieldset class="admin__fieldset admin__fieldset-import-service">
