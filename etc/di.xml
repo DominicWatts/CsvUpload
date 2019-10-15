@@ -1,29 +1,29 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-	<preference for="Xigen\CsvUpload\Api\CsvRepositoryInterface" type="Xigen\CsvUpload\Model\CsvRepository"/>
-	<preference for="Xigen\CsvUpload\Api\Data\CsvInterface" type="Xigen\CsvUpload\Model\Data\Csv"/>
-	<preference for="Xigen\CsvUpload\Api\Data\CsvSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
-	<virtualType name="Xigen\CsvUpload\Model\ResourceModel\Csv\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-		<arguments>
-			<argument name="mainTable" xsi:type="string">xigen_csvupload_csv</argument>
-			<argument name="resourceModel" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Csv\Collection</argument>
-		</arguments>
-	</virtualType>
-	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
-		<arguments>
-			<argument name="collections" xsi:type="array">
-				<item name="xigen_csvupload_csv_listing_data_source" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Csv\Grid\Collection</item>
-				<item name="xigen_csvupload_import_listing_data_source" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Import\Grid\Collection</item>
-			</argument>
-		</arguments>
-	</type>
-	<preference for="Xigen\CsvUpload\Api\ImportRepositoryInterface" type="Xigen\CsvUpload\Model\ImportRepository"/>
-	<preference for="Xigen\CsvUpload\Api\Data\ImportInterface" type="Xigen\CsvUpload\Model\Data\Import"/>
-	<preference for="Xigen\CsvUpload\Api\Data\ImportSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
-	<virtualType name="Xigen\CsvUpload\Model\ResourceModel\Import\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-		<arguments>
-			<argument name="mainTable" xsi:type="string">xigen_csvupload_import</argument>
-			<argument name="resourceModel" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Import\Collection</argument>
-		</arguments>
-	</virtualType>
+    <preference for="Xigen\CsvUpload\Api\CsvRepositoryInterface" type="Xigen\CsvUpload\Model\CsvRepository"/>
+    <preference for="Xigen\CsvUpload\Api\Data\CsvInterface" type="Xigen\CsvUpload\Model\Data\Csv"/>
+    <preference for="Xigen\CsvUpload\Api\Data\CsvSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Xigen\CsvUpload\Model\ResourceModel\Csv\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">xigen_csvupload_csv</argument>
+            <argument name="resourceModel" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Csv\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="xigen_csvupload_csv_listing_data_source" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Csv\Grid\Collection</item>
+                <item name="xigen_csvupload_import_listing_data_source" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Import\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Xigen\CsvUpload\Api\ImportRepositoryInterface" type="Xigen\CsvUpload\Model\ImportRepository"/>
+    <preference for="Xigen\CsvUpload\Api\Data\ImportInterface" type="Xigen\CsvUpload\Model\Data\Import"/>
+    <preference for="Xigen\CsvUpload\Api\Data\ImportSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Xigen\CsvUpload\Model\ResourceModel\Import\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">xigen_csvupload_import</argument>
+            <argument name="resourceModel" xsi:type="string">Xigen\CsvUpload\Model\ResourceModel\Import\Collection</argument>
+        </arguments>
+    </virtualType>
 </config>

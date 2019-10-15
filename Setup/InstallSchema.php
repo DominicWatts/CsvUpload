@@ -12,7 +12,6 @@ use Magento\Framework\Setup\SchemaSetupInterface;
  */
 class InstallSchema implements InstallSchemaInterface
 {
-
     /**
      * {@inheritdoc}
      */

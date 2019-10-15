@@ -3,6 +3,10 @@
 
 namespace Xigen\CsvUpload\Api\Data;
 
+/**
+ * Interface ImportInterface
+ * @package Xigen\CsvUpload\Api\Data
+ */
 interface ImportInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 {
     const CREATED_AT = 'created_at';

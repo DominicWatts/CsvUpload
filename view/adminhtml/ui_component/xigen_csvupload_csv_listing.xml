@@ -134,7 +134,7 @@
             <settings>
                 <filter>text</filter>
                 <label translate="true">Filename</label>
-				<bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
             </settings>
         </column>
         <column name="uploaded_at">
@@ -143,12 +143,12 @@
                 <label translate="true">Uploaded At</label>
             </settings>
         </column>
-		<actionsColumn class="Xigen\CsvUpload\Ui\Component\Listing\Column\CsvActions" name="actions">
-			<settings>
-				<indexField>csv_id</indexField>
-				<resizeEnabled>false</resizeEnabled>
-				<resizeDefaultWidth>107</resizeDefaultWidth>
-			</settings>
-		</actionsColumn>
+        <actionsColumn class="Xigen\CsvUpload\Ui\Component\Listing\Column\CsvActions" name="actions">
+            <settings>
+                <indexField>csv_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>
