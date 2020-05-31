@@ -260,7 +260,7 @@ class Import extends AbstractHelper
     /**
      * Parse import row
      * @param \Xigen\CsvUpload\Model\Import $import
-     * @return void
+     * @return array
      */
     public function parseImport(\Xigen\CsvUpload\Model\Import $import)
     {

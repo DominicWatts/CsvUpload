@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Api\Data;
 
 /**
  * Interface ImportSearchResultsInterface
- * @package Xigen\CsvUpload\Api\Data
  */
 interface ImportSearchResultsInterface extends \Magento\Framework\Api\SearchResultsInterface
 {

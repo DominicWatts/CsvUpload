@@ -1,14 +1,13 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Setup;
 
-use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\InstallSchemaInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
 
 /**
- * InstallSchema class
+ * Xigen CSV setup InstallSchema class
  */
 class InstallSchema implements InstallSchemaInterface
 {
@@ -25,7 +24,7 @@ class InstallSchema implements InstallSchemaInterface
             'csv_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,
-            ['identity' => true,'nullable' => false,'primary' => true,'unsigned' => true,],
+            ['identity' => true,'nullable' => false,'primary' => true,'unsigned' => true],
             'Entity ID'
         );
 
@@ -59,7 +58,7 @@ class InstallSchema implements InstallSchemaInterface
             'import_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
             null,
-            ['identity' => true,'nullable' => false,'primary' => true,'unsigned' => true,],
+            ['identity' => true,'nullable' => false,'primary' => true,'unsigned' => true],
             'Entity ID'
         );
 

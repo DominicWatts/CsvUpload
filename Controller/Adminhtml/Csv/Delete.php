@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
- * Dlete controller class
+ * Xigen CsvUpload Delete controller class
  */
 class Delete extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 {

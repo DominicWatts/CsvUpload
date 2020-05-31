@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model\Data;
 
 use Xigen\CsvUpload\Api\Data\ImportInterface;
 
 /**
- * Import class
+ * Xigen CsvUpload Import class
  */
 class Import extends \Magento\Framework\Api\AbstractExtensibleObject implements ImportInterface
 {

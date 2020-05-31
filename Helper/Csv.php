@@ -3,6 +3,7 @@
 namespace Xigen\CsvUpload\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Csv helper class
@@ -126,7 +127,7 @@ class Csv extends AbstractHelper
     public function getFilename($url = null)
     {
         if (!$url) {
-            throw new \LocalizedException('Url "' . $url . '" is blank');
+            throw new LocalizedException('Url "' . $url . '" is blank');
         }
         $removePrefix = explode('//', $url);
         $parts = explode('/', $removePrefix[1]);
@@ -155,7 +156,7 @@ class Csv extends AbstractHelper
     public function setCsvFileProcessToId($csvId = null, $processId = null)
     {
         if (!$csvId || !$processId) {
-            throw new \LocalizedException(__("Problem setting file ID $csvId as Status ID $processId"));
+            throw new LocalizedException(__("Problem setting file ID $csvId as Status ID $processId"));
         }
 
         $fileToProcess = $this->csvFactory->create()->load($csvId);
@@ -178,7 +179,7 @@ class Csv extends AbstractHelper
     public function storeInTempTable($headers = [], $readRow = [])
     {
         if (empty($headers) || empty($readRow)) {
-            throw new \LocalizedException(__("Problem loading data"));
+            throw new LocalizedException(__("Problem loading data"));
         }
         $insertArray = [];
         foreach ($readRow as $key => $readItem) {

@@ -1,13 +1,9 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Api;
-
-use Magento\Framework\Api\SearchCriteriaInterface;
 
 /**
  * Interface ImportRepositoryInterface
- * @package Xigen\CsvUpload\Api
  */
 interface ImportRepositoryInterface
 {

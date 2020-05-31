@@ -7,7 +7,7 @@ use Xigen\CsvUpload\Api\Data\ImportInterface;
 use Xigen\CsvUpload\Api\Data\ImportInterfaceFactory;
 
 /**
- * Import Model class
+ * Xigen CsvUpload Import Model class
  */
 class Import extends \Magento\Framework\Model\AbstractModel
 {

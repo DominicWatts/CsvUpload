@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
- * New Action controller class
+ * Xigen CsvUpload New Action controller class
  */
 class NewAction extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 {
@@ -11,7 +11,7 @@ class NewAction extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
      * @var \Magento\Backend\Model\View\Result\ForwardFactory
      */
     private $resultForwardFactory;
-    
+
     /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry

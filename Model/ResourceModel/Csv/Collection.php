@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model\ResourceModel\Csv;
 
 /**
- * Collection class
+ * Xigen CsvUpload Collection class
  */
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {

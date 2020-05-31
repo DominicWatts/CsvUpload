@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Block\Adminhtml\Csv\Edit;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
- * SaveButton class
+ * Xigen CsvUpload SaveButton block class
  */
 class SaveButton extends GenericButton implements ButtonProviderInterface
 {

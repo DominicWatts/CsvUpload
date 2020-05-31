@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
- * NewAction controller class
+ * Xigen CsvUpload NewAction controller class
  */
 class NewAction extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 {

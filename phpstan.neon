@@ -1,0 +1,17 @@
+parameters:
+    level: 0
+    autoload_directories:
+        - Api
+        - Block
+        - Controller
+        - Helper
+        - Model
+        - Setup
+        - Ui
+        - view
+    excludes_analyse:
+        - 'vendor'
+    ignoreErrors:
+        - '#invalid typehint#'
+        - '#unknown class#'
+    reportUnmatchedIgnoredErrors: false

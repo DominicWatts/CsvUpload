@@ -7,7 +7,7 @@ use Xigen\CsvUpload\Api\Data\CsvInterface;
 use Xigen\CsvUpload\Api\Data\CsvInterfaceFactory;
 
 /**
- * Csv class
+ * Xigen CsvUpload Csv class
  */
 class Csv extends \Magento\Framework\Model\AbstractModel
 {

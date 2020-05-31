@@ -2,11 +2,11 @@
 
 namespace Xigen\CsvUpload\Model\Import;
 
-use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory;
 
 /**
- * DataProvider class
+ * Xigen CsvUpload DataProvider class
  */
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
