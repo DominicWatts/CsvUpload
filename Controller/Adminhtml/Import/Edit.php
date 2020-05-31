@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
- * Edit controller class
+ * Xigen CSV Import Edit controller class
  */
 class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 {
@@ -65,7 +65,9 @@ class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Import
             $id ? __('Edit Import') : __('New Import')
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Imports'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Import %1', $model->getId()) : __('New Import'));
+        $resultPage->getConfig()->getTitle()->prepend(
+            $model->getId() ? __('Edit Import %1', $model->getId()) : __('New Import')
+        );
         return $resultPage;
     }
 }

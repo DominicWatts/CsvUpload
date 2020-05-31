@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
- * InlineEdit controller class
+ * Xigen CSV Import InlineEdit controller class
  */
 class InlineEdit extends \Magento\Backend\App\Action
 {

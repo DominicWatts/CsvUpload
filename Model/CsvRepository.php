@@ -18,7 +18,7 @@ use Xigen\CsvUpload\Model\ResourceModel\Csv as ResourceCsv;
 use Xigen\CsvUpload\Model\ResourceModel\Csv\CollectionFactory as CsvCollectionFactory;
 
 /**
- * CsvRepository class
+ * Xigen CsvUpload CsvRepository class
  */
 class CsvRepository implements CsvRepositoryInterface
 {

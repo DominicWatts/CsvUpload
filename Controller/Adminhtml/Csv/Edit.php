@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
- * Edit Controller class
+ * Xigen CsvUpload Edit Controller class
  */
 class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 {
@@ -65,7 +65,9 @@ class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
             $id ? __('Edit Csv') : __('New Csv')
         );
         $resultPage->getConfig()->getTitle()->prepend(__('Csvs'));
-        $resultPage->getConfig()->getTitle()->prepend($model->getId() ? __('Edit Csv %1', $model->getId()) : __('New Csv'));
+        $resultPage->getConfig()->getTitle()->prepend(
+            $model->getId() ? __('Edit Csv %1', $model->getId()) : __('New Csv')
+        );
         return $resultPage;
     }
 }

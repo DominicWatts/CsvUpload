@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Model\ResourceModel;
 
 /**
- * Import class
+ * Xigen CsvUpload Import class
  */
 class Import extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {

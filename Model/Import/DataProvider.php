@@ -6,7 +6,7 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory;
 
 /**
- * DataProvider class
+ * Xigen CsvUpload DataProvider class
  */
 class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {

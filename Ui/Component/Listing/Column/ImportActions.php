@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Ui\Component\Listing\Column;
 
 /**
- * ImportActions class
+ * Xigen CsvUpload ImportActions class
  */
 class ImportActions extends \Magento\Ui\Component\Listing\Columns\Column
 {

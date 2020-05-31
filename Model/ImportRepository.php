@@ -18,7 +18,7 @@ use Xigen\CsvUpload\Model\ResourceModel\Import as ResourceImport;
 use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory as ImportCollectionFactory;
 
 /**
- * ImportRepository class
+ * Xigen CsvUpload ImportRepository class
  */
 class ImportRepository implements ImportRepositoryInterface
 {

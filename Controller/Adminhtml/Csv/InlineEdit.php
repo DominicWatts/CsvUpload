@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
- * Inline Edit class
+ * Xigen CsvUpload Inline Edit class
  */
 class InlineEdit extends \Magento\Backend\App\Action
 {

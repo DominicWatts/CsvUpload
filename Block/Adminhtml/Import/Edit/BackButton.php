@@ -5,7 +5,7 @@ namespace Xigen\CsvUpload\Block\Adminhtml\Import\Edit;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
- * BackButton class
+ * Xigen CsvUpload BackButton class
  */
 class BackButton extends GenericButton implements ButtonProviderInterface
 {

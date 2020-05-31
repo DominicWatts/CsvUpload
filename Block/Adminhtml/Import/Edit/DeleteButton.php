@@ -5,7 +5,7 @@ namespace Xigen\CsvUpload\Block\Adminhtml\Import\Edit;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
- * DeleteButton class
+ * Xigen CsvUpload DeleteButton block class
  */
 class DeleteButton extends GenericButton implements ButtonProviderInterface
 {

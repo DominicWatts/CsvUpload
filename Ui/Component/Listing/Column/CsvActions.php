@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Ui\Component\Listing\Column;
 
 /**
- * CsvActions class
+ * Xigen CsvUpload CsvActions class
  */
 class CsvActions extends \Magento\Ui\Component\Listing\Columns\Column
 {
@@ -56,7 +56,9 @@ class CsvActions extends \Magento\Ui\Component\Listing\Columns\Column
                             'label' => __('Insert into temp table'),
                             'confirm' => [
                                 'title' => __('Insert ID ${ $.$data.csv_id }'),
-                                'message' => __('Are you sure you wan\'t to insert ID ${ $.$data.csv_id } into temp table?'),
+                                'message' => __(
+                                    'Are you sure you wan\'t to insert ID ${ $.$data.csv_id } into temp table?'
+                                ),
                             ],
                         ],
                         'delete' => [

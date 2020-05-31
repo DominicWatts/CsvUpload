@@ -5,7 +5,7 @@ namespace Xigen\CsvUpload\Block\Adminhtml\Import\Edit;
 use Magento\Backend\Block\Widget\Context;
 
 /**
- * GenericButton abstract class
+ * Xigen CsvUpload GenericButton abstract block class
  */
 abstract class GenericButton
 {

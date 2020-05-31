@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
- * Process controller class
+ * Xigen CsvUpload Process controller class
  */
 class Process extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
 {

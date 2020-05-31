@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
- * Mass-Status Controller.
+ * Xigen CsvUpload Mass-Status Controller.
  */
 class MassStatus extends \Magento\Backend\App\Action
 {

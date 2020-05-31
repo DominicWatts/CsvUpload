@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Csv;
 
 /**
- * Mass-Delete Controller.
+ * Xigen CsvUpload Mass-Delete Controller.
  */
 class MassDelete extends \Magento\Backend\App\Action
 {

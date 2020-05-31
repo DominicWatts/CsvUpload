@@ -3,7 +3,7 @@
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
 /**
- * Index controller class
+ * Xigen CsvUpload Index controller class
  */
 class Index extends \Magento\Backend\App\Action
 {
