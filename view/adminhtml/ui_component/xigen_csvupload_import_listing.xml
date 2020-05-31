@@ -44,6 +44,13 @@
         <columnsControls name="columns_controls"/>
         <filters name="listing_filters"/>
         <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">xigen_csvupload_import_listing.xigen_csvupload_import_listing.xigen_csvupload_import_columns.ids</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="indexField" xsi:type="string">import_id</item>
+                </item>
+            </argument>
             <action name="delete">
                 <settings>
                     <confirm>
@@ -59,6 +66,27 @@
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="xigen_csvupload_import_columns">
+        <settings>
+            <editorConfig>
+                <param name="selectProvider" xsi:type="string">xigen_csvupload_import_listing.xigen_csvupload_import_listing.xigen_csvupload_import_columns.ids</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="indexField" xsi:type="string">import_id</param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" path="xigen_csvupload/Csv/inlineEdit" xsi:type="url"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">xigen_csvupload_import_listing.xigen_csvupload_import_listing.xigen_csvupload_import_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
         <selectionsColumn name="ids">
             <settings>
                 <indexField>import_id</indexField>
