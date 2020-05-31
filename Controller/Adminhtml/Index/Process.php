@@ -2,8 +2,6 @@
 
 namespace Xigen\CsvUpload\Controller\Adminhtml\Index;
 
-use Magento\Framework\Controller\ResultFactory;
-
 /**
  * Process controller class
  */

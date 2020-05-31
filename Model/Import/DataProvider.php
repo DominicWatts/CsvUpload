@@ -2,8 +2,8 @@
 
 namespace Xigen\CsvUpload\Model\Import;
 
-use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Xigen\CsvUpload\Model\ResourceModel\Import\CollectionFactory;
 
 /**
  * DataProvider class

@@ -7,7 +7,15 @@ namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
  */
 class Edit extends \Xigen\CsvUpload\Controller\Adminhtml\Import
 {
-    protected $resultPageFactory;
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
+    private $resultPageFactory;
+
+    /**
+     * @var \Xigen\CsvUpload\Model\ImportFactory
+     */
+    private $importFactory;
 
     /**
      * Edit constructor.

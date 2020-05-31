@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Block\Adminhtml\Csv\Edit;
 
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;

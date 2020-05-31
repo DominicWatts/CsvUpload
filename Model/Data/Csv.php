@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model\Data;
 
 use Xigen\CsvUpload\Api\Data\CsvInterface;

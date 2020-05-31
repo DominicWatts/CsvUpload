@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Api\Data;
 
 /**
  * Interface CsvInterface
- * @package Xigen\CsvUpload\Api\Data
  */
 interface CsvInterface extends \Magento\Framework\Api\ExtensibleDataInterface
 {

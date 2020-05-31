@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Xigen\CsvUpload\Model\ResourceModel\Import;
 
 /**

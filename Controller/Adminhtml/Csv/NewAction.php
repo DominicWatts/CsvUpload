@@ -11,7 +11,7 @@ class NewAction extends \Xigen\CsvUpload\Controller\Adminhtml\Csv
      * @var \Magento\Backend\Model\View\Result\ForwardFactory
      */
     private $resultForwardFactory;
-    
+
     /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
