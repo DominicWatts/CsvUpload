@@ -6,6 +6,8 @@
 
 ![PHPStan](https://github.com/DominicWatts/CsvUpload/workflows/PHPStan/badge.svg)
 
+![php-cs-fixer](https://github.com/DominicWatts/CsvUpload/workflows/php-cs-fixer/badge.svg)
+
 Base for any type of csv upload and processing.  Screens to upload and process CSV data.  The idea is that the import procedure can be extended on depending on needs.
 
 # Install instructions #

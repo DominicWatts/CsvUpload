@@ -2,7 +2,7 @@
 
 namespace Xigen\CsvUpload\Controller\Adminhtml\Import;
 
-use \Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Xigen CSV Import Truncate class
