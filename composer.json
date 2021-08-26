@@ -3,7 +3,7 @@
     "description": "Base for any type of csv upload and processing",
     "type": "magento2-module",
     "license": "proprietary",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "authors": [
         {
             "name": "Dominic Xigen",
@@ -21,7 +21,7 @@
         "magento/framework": "*",
         "magento/module-backend": "*",
         "magento/module-ui": "*",
-        "php": "~7.0.0||~7.1.0||~7.2.0||~7.3.0"
+        "php": ">=7.0.0"
     },
     "autoload": {
         "psr-4": {
